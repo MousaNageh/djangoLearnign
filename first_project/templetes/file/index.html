@@ -1,0 +1,26 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>my first app </title>
+</head>
+
+<body>
+    <h1>hello this my first app </h1>
+    {% if AccessRecorders %}
+      <table>
+        <thead>
+          <th>access records</th>
+        </thead>
+        {% for acc in AccessRecorders %}
+          <tr>
+            <td> {{acc.date }} , {{ acc.name }}</td>
+          </tr>
+      </table>
+        {% endfor %}
+    {% endif %}
+</body>
+
+</html>
