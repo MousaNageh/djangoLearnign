@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %} profile {% endblock title %} {% block content %}
+<div class="alert alert-warning my-5">
+    <h4>delete post </h4>
+    <p>are you sure u want to delete this post </p>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger">Delete post </button>
+    </form>
+</div>
+{% endblock content %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %} register {% endblock title %} {% block content %}
+<div class="card text-left my-5 offset-md-3 col-md-6 ">
+    <div class="card-body">
+        <h3 class="card-title text-info border-bottom border-info pb-2">login</h3>
+        <div class="card-text">
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username" class="text-info">username</label> {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password" class="text-info">password</label> {{ form.password }}
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-info"> Login</button>
+                    <a href="{% url 'chatapp:register' %}">register</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

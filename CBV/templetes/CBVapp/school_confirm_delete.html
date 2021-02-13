@@ -1,0 +1,11 @@
+{% extends 'base.html' %} {% block title %} delete {% endblock title %} {% block content %}
+<div class="container ">
+    <h1>delete this {{ school.name }}</h1>
+    <form method="POST">
+        <button class="btn btn-danger">
+          {% csrf_token %}
+        delete 
+      </button>
+    </form>
+</div>
+{% endblock content %}

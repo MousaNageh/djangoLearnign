@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %} profile {% endblock title %} {% block content %}
+<div class="card text-left col-md-6 offset-md-3 my-5">
+    <div class="user my-1 pb-1 border-bottom d-flex text-center">
+        <img src="{{ post.author.user_img.url }}" alt="" class="rounded-circle mx-1" width="50px" height="50px">
+        <a href="{% url 'chatapp:profile' post.author.user.id %} " class="pt-2 text-decoration-none">{{ post.author.user.username }}</a>
+    </div>
+    <img class="card-img-top" src="{{ post.img.url }}" alt="">
+    <div class="card-body">
+        <h4 class="card-title">{{ post.title }}</h4>
+        <p class="card-text border-bottom my-2 pb-3">{{ post.content }}</p>
+        <div class="d-flex">
+            <small> {{ post.created_date }} </small>
+        </div>
+
+        {% if user.pk == post.author.user.pk %}
+        <div class="d-flex justify-content-end">
+            <a href="{% url 'chatapp:updatepost' post.id %}" class="btn btn-info mx-3"> edit  </a>
+            <a class="btn btn-danger" href="{% url 'chatapp:deletepost' post.id %}"> delete  </a>
+        </div>
+        {% endif %}
+        <div class="comments">
+            <h3 class="text-info">comments</h3>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %} school {% endblock title %} {% block content %}
+<div class="container">
+    <div class="card my-5">
+        <div class="card-header">
+            {% if not form.instance.pk %} create view {% else %} update view {% endif %}
+        </div>
+        <div class="card-body">
+
+            <form class="form" method="POST">
+                {% csrf_token %} {{ form.as_p }}
+                <button class="btn btn-success"> create </button>
+            </form>
+        </div>
+    </div>
+</div>{% endblock content %}

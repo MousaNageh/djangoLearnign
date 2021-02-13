@@ -1,0 +1,26 @@
+{% extends "base.html" %} {% block title %} profile {% endblock title %} {% block content %}
+<div class="unapprovedposts row ">
+    {% for post in posts %}
+    <div class="card text-left my-3 col-md-6 offset-md-3">
+        <div class="user my-1 pb-1 border-bottom d-flex text-center">
+            <img src="{{ post.author.user_img.url }}" alt="" class="rounded-circle mx-1" width="50px" height="50px">
+            <a href="{% url 'chatapp:profile' post.author.user.id %} " class="pt-2 text-decoration-none">{{ post.author.user.username }}</a>
+        </div>
+        <img class="card-img-top" src="{{ post.img.url }}" alt="">
+        <div class="card-body">
+            <h4 class="card-title">{{ post.title }}</h4>
+            <p class="card-text border-bottom my-2 pb-3">{{ post.content }}</p>
+            <div class="d-flex">
+                <small> {{ post.created_date }} </small>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a href="{% url 'chatapp:approve' post.pk %}" class="btn btn-info mx-3">approve</a>
+                <a href="{% url 'chatapp:deletepost' post.pk %}" class="btn btn-danger">delete</a>
+            </div>
+        </div>
+    </div>
+    {% empty%}
+    <h4 class="my-5 text-center"> no posts are not unapproved !! </h4>
+    {% endfor %}
+</div>
+{% endblock content %}s

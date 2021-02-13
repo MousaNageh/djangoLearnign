@@ -1,0 +1,13 @@
+{% extends 'base.html' %} {% block title %} school list {% endblock title %} {% block content %} {% for school in schools %}
+<div class="container">
+    <div class="jumbotron my-5">
+        <h3>name: {{ school.name }}</h3>
+        <p>princap: {{ school.principal }}</p>
+        <p>location: {{ school.location }}</p>
+        <a href="{{ school.id }} " class="btn btn-info">show</a>
+        <a href="{% url 'CBV:updateschool' school.id %}" class="btn btn-success">update</a>
+        <a href="{% url 'CBV:deleteschool' school.id %}" class="btn btn-danger">delete</a>
+    </div>
+</div>
+
+{% endfor %} {% endblock content %}

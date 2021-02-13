@@ -1,0 +1,15 @@
+{% extends 'base.html' %} {% block title %} school details details {% endblock title %} {% block content %}
+<div class="container">
+    <div class="card my-5">
+        <div class="card-header">
+            Students
+        </div>
+        <div class="card-body">
+            <ul class="list-group">
+                {% for student in school.students.all %}
+                <li class="list-group-item">{{ student.name }} - {{ student.age }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>{% endblock content %}

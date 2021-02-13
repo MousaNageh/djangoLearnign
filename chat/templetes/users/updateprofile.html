@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block title %} Edit profile {% endblock title %} {% block content %}
+<div class="card text-left my-5 offset-md-3 col-md-6 ">
+    <div class="card-body">
+        <h3 class="card-title text-info border-bottom border-info pb-2">Edit profile</h3>
+        <div class="card-text">
+
+            {% if form.errors %}
+            <div class="alert alert-danger">
+                {{ form.errors }}
+            </div>
+            {% endif %}
+
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_username" class="text-info">username</label> {{ form.username }}
+                </div>
+                <div class="form-group">
+                    <label for="id_email" class="text-info">email</label> {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="id_password" class="text-info">password</label> {{ form.password }}
+                </div>
+                <div class="form-group">
+                    <label for="id_first_name" class="text-info">first name</label> {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_last_name" class="text-info">last name</label> {{ form.last_name }}
+                </div>
+                <div class="form-group">
+                    <label for="id_user_profile" class="text-info">profile image</label> {{ form.user_profile }}
+                </div>
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-info"> Save </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
