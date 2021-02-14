@@ -1,0 +1,22 @@
+{% extends "base.html" %} {% block title %} admin login {% endblock title %} {% block content %} {% if form.errors %}
+<div class="alert alert-danger my-5">
+    username or password is not valid
+</div>
+{% endif %}
+<div class="row my-5">
+    <div class="col-md-6 offset-md-3">
+        <div class="card text-left">
+
+            <div class="card-body">
+                <h4 class="card-title text-info">Admin login</h4>
+                <p class="card-text">
+                    <form method="POST" action="{% url 'adminlogin' %}">
+                        {% csrf_token %} {{ form.as_p }}
+                        <button class="btn btn-info">save</button>
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

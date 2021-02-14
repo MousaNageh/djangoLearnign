@@ -15,8 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("chatapp.urls", namespace="chatapp"))
+    path("", include("chatapp.urls", namespace="chatapp")),
+    path("accounts/login/",
+         views.LoginView.as_view(redirect_field_name='/admin/'), name="adminlogin", kwargs={'next_page': '/admin/'}),
+    path("accounts/logout/", views.LogoutView.as_view(),
+         name="adminlogout", kwargs={'next_page': '/'})
 ]

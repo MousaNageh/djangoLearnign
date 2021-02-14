@@ -50,9 +50,10 @@ class Comment(models.Model):
 
     def approve_comment(self):
         self.approved = True
-        self.save
+        self.save()
 
     def __str__(self):
         return self.content
-    # get_absolute_url(self):
-    #     return reverse("model_detail", kwargs={"pk": self.pk})
+
+    def get_absolute_url(self):
+        return reverse("chatapp:comments", kwargs={"pk": self.post.pk})

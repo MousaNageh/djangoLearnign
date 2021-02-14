@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block title %} profile {% endblock title %} {% block content %}
+<div class="card text-left col-md-6 offset-md-3 my-5">
+    <div class="user my-1 pb-1 border-bottom d-flex text-center justify-content-between">
+        <div>
+            <img src="{{ post.author.user_img.url }}" alt="" class="rounded-circle mx-1" width="50px" height="50px">
+            <a href="{% url 'chatapp:profile' post.author.user.id %} " class="pt-2 text-decoration-none">{{ post.author.user.username }}</a>
+        </div>
+        {% if user.pk == post.author.user.pk %}
+        <div>
+            <a href="{% url 'chatapp:updatepost' post.id %}" class="btn btn-success mx-3"> edit  </a>
+            <a class="btn btn-danger" href="{% url 'chatapp:deletepost' post.id %}"> delete  </a>
+        </div>
+        {% endif %}
+    </div>
+    <img class="card-img-top" src="{{ post.img.url }}" alt="">
+    <div class="card-body">
+        <h4 class="card-title">{{ post.title }}</h4>
+        <p class="card-text border-bottom my-2 pb-3">{{ post.content }}</p>
+        <div class="d-flex">
+            <small> {{ post.created_date }} </small>
+        </div>
+
+
+        <div class="comments">
+            <div class="d-flex justify-content-end my-2">
+                <a class="btn btn-info" href="{% url 'chatapp:createcomment' post.id %}"> create comment</a>
+            </div>
+            <h3 class="text-info">comments</h3>
+
+            {% for comment in comments %}
+            <div class="jumbotron my-1 p-2">
+                <div class="d-flex">
+                    <img src="{{ comment.author.user_img.url }} " class="rounded-circle" width="50px" height="50px" alt="">
+                    <a class="my-3 mx-2 h6" href="{% url 'chatapp:profile' comment.author.user.id %}">{{ comment.author.user.username }}</a>
+                </div>
+                <p class="small" class="lead">
+                    {{ comment.content }}
+                </p>
+                <small> {{ comment.created_date|date:"l d-m-Y  g:s a" }} </small> {% if user.id == comment.author.user.id %}
+                <div class="d-flex justify-content-end">
+                    <a class="btn btn-success mx-1" href="{% url 'chatapp:editcomment' comment.pk %}">edit </a>
+                    <a href="{% url 'chatapp:deletecomment' post.id comment.id %}" class="btn btn-danger">delete</a>
+                </div>
+
+                {% endif %}
+
+            </div>
+            {% empty %}
+            <h5>no comments at this post</h5> {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock content %}

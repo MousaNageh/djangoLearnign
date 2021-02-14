@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block title %} edit commet{% endblock title %} {% block content %}
+<div class="card text-left col-md-6 offset-md-3 my-5">
+    <div class="card-body">
+        {% if edit %}
+        <h4 class="card-title text-info">edit comment</h4>
+        {% else %}
+        <h4 class="card-title text-info">Create comment</h4>
+        {% endif %}
+
+        <div class="card-text">
+            <form method="POST">
+                {% csrf_token %} {{ form.as_p }}
+                <button class="btn btn-info">save</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}

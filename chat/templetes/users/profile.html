@@ -39,7 +39,9 @@
                 </div>
                 {% endif %}
                 <div class="comments">
-                    <h3 class="text-info">comments</h3>
+                    <a href="{% url 'chatapp:comments' post.pk %}">
+                        <h3 class="text-info">comments</h3>
+                    </a>
                 </div>
             </div>
         </div> {% empty %}no posts created !! {% endfor %}

@@ -160,3 +160,52 @@ def approvepost(request, pk):
     return redirect(reverse("chatapp:unapproved_posts"))
 
 #########################################################
+
+
+class CommentsTemplate(TemplateView):
+    template_name = "comments/comments.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = Post.objects.get(id__exact=self.kwargs["pk"])
+        context["post"] = post
+        context["comments"] = post.comments.all()
+        print(context["comments"])
+        return context
+
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    template_name = "comments/createcomment.html"
+    form_class = CommentForm
+
+    def form_valid(self, form):
+        comment = form.save(commit=False)
+        comment.author = AuthUser.objects.get(
+            user_id__exact=self.request.user.id)
+        comment.post = Post.objects.get(id=self.kwargs['pk'])
+        comment.save()
+        return redirect(reverse("chatapp:comments", args=[self.kwargs['pk']]))
+
+
+class CommentUpdateView(LoginRequiredMixin, UpdateView):
+
+    form_class = CommentForm
+    template_name = "comments/createcomment.html"
+    model = Comment
+
+    def get_queryset(self):
+        return Comment.objects.filter(id__exact=self.kwargs["pk"])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["edit"] = True
+        return context
+
+
+@login_required
+def deletecomment(self, postid, commentid):
+    comment = get_object_or_404(Comment, pk=commentid)
+    if comment:
+        comment.delete()
+    return redirect(reverse("chatapp:comments", args=[postid]))

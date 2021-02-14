@@ -1,7 +1,9 @@
 from django.urls import path
 from chatapp.views import (Home, Register, LoginUser, logout_view,
                            Profile,  PostListView, PostDetail, PostCreateView,
-                           PostUpdateView, PostDeleteView, UnapprovedPostList, approvepost, AuthUserUpdateView)
+                           PostUpdateView, PostDeleteView, UnapprovedPostList,
+                           approvepost, AuthUserUpdateView, CommentsTemplate,
+                           CommentCreateView, deletecomment, CommentUpdateView)
 from django.conf import settings
 from django.conf.urls.static import static
 app_name = "chatapp"
@@ -20,5 +22,12 @@ urlpatterns = [
     path("posts/create/", PostCreateView.as_view(), name="createpost"),
     path("posts/<int:pk>/edit/", PostUpdateView.as_view(), name="updatepost"),
     path("posts/<int:pk>/delete/", PostDeleteView.as_view(), name="deletepost"),
+    path("posts/<int:pk>/comments", CommentsTemplate.as_view(), name="comments"),
+    path("posts/<int:pk>/comments/create",
+         CommentCreateView.as_view(), name="createcomment"),
+    path("posts/<int:postid>/comments/delete/<int:commentid>",
+         deletecomment, name="deletecomment"),
+    path("posts/comments/<int:pk>/editcommet",
+         CommentUpdateView.as_view(), name="editcomment")
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
