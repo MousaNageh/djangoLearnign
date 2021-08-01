@@ -22,12 +22,13 @@ class Register(GenericAPIView):
         token = RefreshToken.for_user(user)
         current_site = get_current_site(request).domain
         relative_link = reverse("verify_email")
-        abs_url = f"http://{current_site}{relative_link}?token={token.access_token}"
+        abs_url = f"http://{current_site}{relative_link}?token={str(token.access_token)}"
         email_body = f"Hi {user.username} , Click the link to verify Your Email : \n {abs_url}"
         data = {
           "domain":abs_url , 
           "subject":"Verify Your Email . ",
-          "email_body":email_body
+          "email_body":email_body ,
+          "to_email":user.email
         }
         Util.send_email(data)
 
