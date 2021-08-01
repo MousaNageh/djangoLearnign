@@ -25,7 +25,6 @@ class Register(GenericAPIView):
         abs_url = f"http://{current_site}{relative_link}?token={str(token.access_token)}"
         email_body = f"Hi {user.username} , Click the link to verify Your Email : \n {abs_url}"
         data = {
-          "domain":abs_url , 
           "subject":"Verify Your Email . ",
           "email_body":email_body ,
           "to_email":user.email
