@@ -9,8 +9,8 @@ class UserManger(BaseUserManager):
     if email is None : 
       raise TypeError("email must be provided")
     user = self.model(username=username,email=self.normalize_email(email))
-    user.set_password(password)
-    user.save()
+    user.set_password(password) 
+    user.save(using=self._db)
     return user
   
   def create_superuser(self,username,email,password=None):
@@ -19,7 +19,7 @@ class UserManger(BaseUserManager):
     user = self.create_user(username,email,password)
     user.is_superuser = True 
     user.is_staff = True
-    user.save()
+    user.save(using=self._db)
     return user 
 
 class User(AbstractBaseUser,PermissionsMixin):
@@ -32,7 +32,7 @@ class User(AbstractBaseUser,PermissionsMixin):
   updated_at = models.DateTimeField(auto_now=True)
   
   USERNAME_FIELD = 'email'
-  REQUIRED_FIELDS = ["username"]
+  REQUIRED_FIELDS = ["username",]
   
   objects = UserManger()
 

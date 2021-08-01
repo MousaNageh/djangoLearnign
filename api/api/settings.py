@@ -29,6 +29,12 @@ ALLOWED_HOSTS = []
 
 #custom user model
 AUTH_USER_MODEL = "api_app.User"
+REST_FRAMEWORK={
+  "NON_FIELD_ERRORS_KEY":"error",
+  'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
 
 # Application definition
 
