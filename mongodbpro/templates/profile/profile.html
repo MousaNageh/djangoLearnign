@@ -1,0 +1,41 @@
+{% extends "base.html" %} {% block title %} profile {% endblock title %} {% block content %}
+<div class="fixed-top list d-block d-xl-none">
+    <i class="fas fa-list fa-2x"></i>
+</div>
+<div class="row my-5 ">
+    <div class="col-md-5 profile-onctainer position-relative	d-none d-xl-block ">
+        <div class="profile-card card text-left fixed-top ">
+            {% if user.is_authenticated %}
+            <div class="d-flex justify-content-end my-3 ">
+                <a href="{% url 'myapp:editprofile' profile.pk %}" class="btn btn-info ">
+                    <i class="fas fa-edit "></i>Edit profile
+                </a>
+            </div>
+            {% endif %} {% if profile.user_img %}
+            <img class="card-img-top" src="{{ profile.user_img.url  }}" alt=""> {%else%}
+            <img class="card-img-top" src="/static/avatar.jpg" alt=""> {% endif %}
+            <div class="card-body">
+                <h4 class="card-title pb-3">profile info</h4>
+                <div class="card-text">
+                    <p class="my-2 border-bottom pb-4"> <span class="text-info"> username :</span> {{ profile}} </p>
+                    <p class="my-2 border-bottom pb-4 "> <span class="text-info "> email :</span> {{ profile.email}} </p>
+                    <p class="my-2 border-bottom pb-4"> <span class="text-info "> fullname :</span> {{ profile.first_name}} {{ profile.last_name}} </p>
+                    <p class="my-2 border-bottom pb-4"> <span class="text-info "> joined :</span> {{ profile.date_joined|date:"l d-m-Y "}} </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-lg-8  my-3 offset-lg-4 ">
+        {% for x in '0123456789'|make_list %}
+        <div class="card text-left ">
+            <img class="card-img-top " src="holder.js/100px180/ " alt=" ">
+            <div class="card-body ">
+                <h4 class="card-title ">Title</h4>
+                <p class="card-text ">Body</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}

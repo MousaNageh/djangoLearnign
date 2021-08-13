@@ -1,9 +1,12 @@
 from djongo import models
 from django.contrib.auth.models import (AbstractBaseUser,BaseUserManager,PermissionsMixin)
-
+import os
+from rest_framework_simplejwt.tokens import RefreshToken
+# from django.core.validators import FileExtensionValidator
 class UserManger(BaseUserManager): 
   
   def create_user(self,username,email,password=None):
+  
     if username is None : 
       raise TypeError("username must be provided")
     if email is None : 
@@ -40,6 +43,39 @@ class User(AbstractBaseUser,PermissionsMixin):
       return self.email
   
   def tokens(self): 
-    pass
+    token = RefreshToken.for_user(self)
+    return {
+      'refresh':str(token) , 
+      'access':str(token.access_token)
+    }
   
+CATEGORY=[
+    ("ONLINE_SERVIESE","online_servies"),
+    ("ONLINE","oneline"),
+    ("TEST","test"),
+    ("BLANK",""),
+    ("NULL",None)
+  ]
+
+class ArrayFieldModel(models.Model): 
+  name = models.CharField(max_length=50,blank=True,null=True)
+  class Meta: 
+    abstract = True
+
+
+class EmbeddedFieldModel(models.Model): 
+  name = models.CharField(max_length=50,blank=True,null=True)
+  class Meta: 
+    abstract = True
+
+class Image(models.Model): 
+  img = models.FileField(upload_to="drug")
   
+
+class Expense(models.Model): 
+  category = models.CharField(max_length=50)
+  amunt = models.DecimalField(max_digits=5, decimal_places=2,blank=True,null=True)
+  price = models.PositiveIntegerField(blank=True , null=True)
+  array = models.ArrayField(model_container=ArrayFieldModel)
+  embedded = models.EmbeddedField(model_container=EmbeddedFieldModel)
+  imgs = models.JSONField(default=[])
